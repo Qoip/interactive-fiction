@@ -4,6 +4,9 @@ from bin.DataStorage import DataStorage
 from bin.GameSettings import GameSettings
 
 class GameEngine:
+  '''
+  Main game manager
+  '''
 
   state = GameState()
   __storage = DataStorage()
