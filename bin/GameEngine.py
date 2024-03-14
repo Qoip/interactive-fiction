@@ -1,7 +1,7 @@
-from bin.GameState import GameState
-from bin.ContentGenerator import ContentGenerator
-from bin.DataStorage import DataStorage
-from bin.GameSettings import GameSettings
+from GameState import GameState
+from ContentGenerator import ContentGenerator
+from DataStorage import DataStorage
+from GameSettings import GameSettings
 
 class GameEngine:
   '''
