@@ -3,6 +3,9 @@ from bin.GameSettings import GameSettings
 from bin.Message import Message
 
 class GameState:
+  '''
+  Class responds to saving game current state
+  '''
 
   __game_settings : GameSettings
   __last_messages : List[Message]
