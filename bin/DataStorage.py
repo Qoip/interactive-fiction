@@ -1,5 +1,5 @@
 from typing import List, Any # delete Any
-from Message import Message
+from bin.Message import Message
 
 class DataStorage:
 
