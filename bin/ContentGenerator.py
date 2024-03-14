@@ -5,6 +5,7 @@ class ContentGenerator:
   '''
   Provides API for resolving game queries
   '''
+  
   __game_state : GameState # GameState link!
 
   def UserQuery(self, user_message : str) -> Message:
