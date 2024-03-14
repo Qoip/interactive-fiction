@@ -2,6 +2,9 @@ from typing import List, Any # delete Any
 from bin.Message import Message
 
 class DataStorage:
+  '''
+  Provides and saves to files category elements needed for storyline
+  '''
 
   def Reset(self):
     '''
