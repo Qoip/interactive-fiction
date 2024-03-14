@@ -1,5 +1,5 @@
-from bin.GameEngine import GameEngine
-from bin.GameSettings import GameSettings
+from GameEngine import GameEngine
+from GameSettings import GameSettings
 
 class WebUI:
   '''
@@ -30,5 +30,4 @@ class WebUI:
     pass
 
 if __name__ == '__main__':
-  print("start")
   WebUI()
