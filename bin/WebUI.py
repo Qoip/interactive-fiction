@@ -28,3 +28,7 @@ class WebUI:
     Settings change listener
     '''
     pass
+
+if __name__ == '__main__':
+  print("start")
+  WebUI()
