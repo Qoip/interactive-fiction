@@ -1,5 +1,5 @@
-from GameEngine import GameEngine
-from GameSettings import GameSettings
+from bin.GameEngine import GameEngine
+from bin.GameSettings import GameSettings
 
 class WebUI:
   def __init__(self):
@@ -7,10 +7,19 @@ class WebUI:
     self.__game_settings : GameSettings # GameSettings link
 
   def UserQueryListener(self):
+    '''
+    Listener for user send query
+    '''
     pass
   
   def ResetListener(self):
+    '''
+    Reset button listener
+    '''
     pass
 
   def SettingsChangeListener(self):
+    '''
+    Settings change listener
+    '''
     pass
