@@ -1,6 +1,6 @@
 from typing import List, Any # delete Any
-from bin.GameSettings import GameSettings
-from bin.Message import Message
+from GameSettings import GameSettings
+from Message import Message
 
 class GameState:
   '''

@@ -1,5 +1,5 @@
-from bin.Message import Message
-from bin.GameState import GameState
+from Message import Message
+from GameState import GameState
 
 class ContentGenerator:
   '''
