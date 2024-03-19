@@ -1,3 +1,4 @@
+from flask import Flask, render_template, request
 from GameEngine import GameEngine
 from GameSettings import GameSettings
 
@@ -8,26 +9,50 @@ class WebUI:
   '''
 
   def __init__(self):
-    self.__game = GameEngine()
-    self.__game_settings : GameSettings # GameSettings link
+    self.app = Flask(__name__)
+    self._game_settings = GameSettings() # GameSettings link
+    self._game = GameEngine()
+    self.SetupRoutes()
 
-  def UserQueryListener(self):
-    '''
-    Listener for user send query
-    '''
-    pass
-  
-  def ResetListener(self):
-    '''
-    Reset button listener
-    '''
-    pass
+  def SetupRoutes(self):
 
-  def SettingsChangeListener(self):
+    @self.app.route('/')
+    def Load():
+      return render_template('index.html')
+
+    @self.app.route('/query', methods=['POST'])
+    def UserQueryListener(self):
+      '''
+      Listener for user send query
+      '''
+      self._game.UserQuery(request.json['text'])
+    
+    @self.app.route('/reset', methods=['GET'])
+    def ResetListener(self):
+      '''
+      Reset button listener
+      '''
+      self._game.ResetState()
+      return "Reset successful"
+
+    @self.app.route('/settings_change', methods=['POST'])
+    def SettingsChangeListener(self):
+      '''
+      Settings change listener
+      '''
+      data = request.json
+
+      ### change _game_settings
+
+      self._game.ChangeSettings(self._game_settings)
+      
+      return "Settings changed"
+
+  def run(self):
     '''
-    Settings change listener
+    Start site
     '''
-    pass
+    self.app.run(debug=True)
 
 if __name__ == '__main__':
-  WebUI()
+  WebUI().run()
