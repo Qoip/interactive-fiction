@@ -9,7 +9,7 @@ class WebUI:
   '''
 
   def __init__(self):
-    self.app = Flask(__name__)
+    self.app = Flask(__name__, template_folder='../static')
     self._game_settings = GameSettings() # GameSettings link
     self._game = GameEngine()
     self.SetupRoutes()
@@ -21,14 +21,15 @@ class WebUI:
       return render_template('index.html')
 
     @self.app.route('/query', methods=['POST'])
-    def UserQueryListener(self):
+    def UserQueryListener():
       '''
       Listener for user send query
       '''
-      self._game.UserQuery(request.json['text'])
+      self._game.UserQuery(request.form.get('user_query'))
+      return "Query resolved"
     
     @self.app.route('/reset', methods=['GET'])
-    def ResetListener(self):
+    def ResetListener():
       '''
       Reset button listener
       '''
@@ -36,7 +37,7 @@ class WebUI:
       return "Reset successful"
 
     @self.app.route('/settings_change', methods=['POST'])
-    def SettingsChangeListener(self):
+    def SettingsChangeListener():
       '''
       Settings change listener
       '''
