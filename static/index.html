@@ -5,12 +5,10 @@
 </head>
 <body>
     <form method="POST" action="/query">
-        <input type="text" id="queryInput" name="text">
+        <input name="user_query">
         <button type="submit">Run</button>
     </form>
 
-    <form method="GET" action="/reset">
-      <button type="submit">Reset</button>
-    </form>
+    <button onclick="window.location.href='/reset'">Reset</button>
 </body>
 </html>
