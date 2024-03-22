@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, flash, session
 from GameEngine import GameEngine
 from GameSettings import GameSettings
 
@@ -10,7 +10,8 @@ class WebUI:
 
   def __init__(self):
     self.app = Flask(__name__, template_folder='../static')
-    self._game_settings = GameSettings() # GameSettings link
+    self.app.secret_key = 'your_secret_key_here' # make it secret
+    self._game_settings = GameSettings()
     self._game = GameEngine()
     self.SetupRoutes()
 
@@ -18,7 +19,10 @@ class WebUI:
 
     @self.app.route('/')
     def Load():
-      return render_template('index.html')
+      return render_template('index.html',
+                           message_history_length=self._game_settings.message_history_length,
+                           context_messages=self._game_settings.context_messages,
+                           assistant_instruction=self._game_settings.assistant_instruction)
 
     @self.app.route('/query', methods=['POST'])
     def UserQueryListener():
@@ -26,7 +30,9 @@ class WebUI:
       Listener for user send query
       '''
       self._game.UserQuery(request.form.get('user_query'))
-      return "Query resolved"
+
+      flash("Query resolved", "success")
+      return redirect('/')
     
     @self.app.route('/reset', methods=['GET'])
     def ResetListener():
@@ -34,20 +40,24 @@ class WebUI:
       Reset button listener
       '''
       self._game.ResetState()
-      return "Reset successful"
+
+      flash("Reset", "success")
+      return redirect('/')
 
     @self.app.route('/settings_change', methods=['POST'])
     def SettingsChangeListener():
       '''
       Settings change listener
       '''
-      data = request.json
-
-      ### change _game_settings
+      data = request.form
+      self._game_settings.assistant_instruction = data.get('assistant_instruction')
+      self._game_settings.context_messages = data.get('context_messages')
+      self._game_settings.message_history_length = data.get('message_history_length')
 
       self._game.ChangeSettings(self._game_settings)
       
-      return "Settings changed"
+      flash("Settings chenged", "success")
+      return redirect('/')
 
   def run(self):
     '''
