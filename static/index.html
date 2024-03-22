@@ -10,5 +10,23 @@
     </form>
 
     <button onclick="window.location.href='/reset'">Reset</button>
+
+    <form method="POST" action="/settings_change">
+        <input type="number" name="message_history_length" value="{{ message_history_length }}">
+        <input type="number" name="context_messages" value="{{ context_messages }}">
+        <input type="text" name="assistant_instruction" value="{{ assistant_instruction }}">
+        <button type="submit">Update Settings</button>
+    </form>
+
+    <div>
+        {% with flashed_messages = get_flashed_messages() %}
+            <ul>
+                {% for message in flashed_messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endwith %}
+    </div>
+    
 </body>
 </html>
