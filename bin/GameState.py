@@ -7,7 +7,7 @@ class GameState:
   Class responds to saving game current state
   '''
 
-  __game_settings : GameSettings
+  _game_settings : GameSettings
   __last_messages : List[Message]
   __system_context : List[Message]
   __bars_info : Any # json!
