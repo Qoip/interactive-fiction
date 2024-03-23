@@ -45,7 +45,7 @@ class GameState:
         self.__save_to_file()
 
     @property
-    def bars(self) -> Any:  # json object!
+    def bars(self) -> Dict[str, Any]:
         '''Return bars information.'''
         return self.__bars_info
 
