@@ -9,9 +9,10 @@ from game_settings import GameSettings
 class GameEngine:
     '''Main game manager.'''
 
-    state = GameState()
-    __storage = DataStorage()
-    __content_generator = ContentGenerator()
+    def __init__(self):
+        self.state = GameState()
+        self.__storage = DataStorage()
+        self.__content_generator = ContentGenerator()
 
     def user_query(self, message: str):
         '''Resolve user game query.'''
@@ -21,6 +22,8 @@ class GameEngine:
 
     def settings_change(self, settings: GameSettings):
         '''Update settings.'''
+        self.state.game_settings = settings
+
 
     def change_category_element(self, category: str):
         '''Change current element by category.'''
