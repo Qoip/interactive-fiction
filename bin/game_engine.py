@@ -20,10 +20,5 @@ class GameEngine:
     def reset_state(self):
         '''Resets game.'''
 
-    def settings_change(self, settings: GameSettings):
-        '''Update settings.'''
-        self.state.game_settings = settings
-
-
     def change_category_element(self, category: str):
         '''Change current element by category.'''

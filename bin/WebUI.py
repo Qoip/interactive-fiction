@@ -53,7 +53,7 @@ class WebUI:
             self.__game_settings.context_messages = data.get('context_messages')
             self.__game_settings.history_length = data.get('history_length')
 
-            self.__game.settings_change(self.__game_settings)
+            self.__game.state.game_settings = self.__game_settings
 
             flash("Settings changed", "success")
             return redirect('/')
