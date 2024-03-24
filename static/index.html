@@ -12,7 +12,7 @@
     <button onclick="window.location.href='/reset'">Reset</button>
 
     <form method="POST" action="/settings_change">
-        <input type="number" name="message_history_length" value="{{ message_history_length }}">
+        <input type="number" name="history_length" value="{{ history_length }}">
         <input type="number" name="context_messages" value="{{ context_messages }}">
         <input type="text" name="assistant_instruction" value="{{ assistant_instruction }}">
         <button type="submit">Update Settings</button>
