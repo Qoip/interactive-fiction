@@ -1,0 +1,12 @@
+{
+    "game_settings": {
+        "history_length": 20,
+        "context_messages": 5,
+        "assistant_instruction": "You are helpful assistant."
+    },
+    "message_history": [],
+    "system_context": [],
+    "bars": {
+        "health": 100
+    }
+}
