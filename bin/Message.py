@@ -1,20 +1,38 @@
 '''Module containing WebUI class.'''
 
 from datetime import datetime
+from typing import Dict, Any
 
 
 class Message:
     '''OpenAI message container.'''
 
-    def __init__(self, sender: str, message: str, timestamp : datetime):
+    def __init__(self, sender: str, message: str):
         self.sender = sender
         self.message = message
-        self.timestamp = timestamp
+        self.timestamp = datetime.now()
 
     def is_empty(self) -> bool:
         '''Check for message emptiness.'''
         return self.message.strip() == ""
 
-    def format(self):
+    def format(self) -> str:
         '''Format the message with timestamp and sender.'''
         return f'{self.timestamp} | {self.timestamp}: {self.message}'
+
+    def to_json(self) -> Dict[str, Any]:
+        '''Makes json object from class data'''
+        return {
+            "sender": self.sender,
+            "message": self.message,
+            "timestamp": self.timestamp.isoformat()
+        }
+
+    def from_json(self, json : Dict[str, Any]):
+        '''Load message from json object'''
+        try:
+            self.sender = json["sender"]
+            self.sender = json["message"]
+            self.timestamp = datetime.fromisoformat(json["timestamp"])
+        except KeyError as exc:
+            raise KeyError(f"JSON decode error:\n{json}") from exc
