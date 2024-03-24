@@ -59,7 +59,6 @@ class GameState:
     @game_settings.setter
     def game_settings(self, settings: GameSettings):
         '''Update game settings.'''
-        print(type(self.__game_settings))
         self.__game_settings = settings
         self.__save_to_file()
 
@@ -81,10 +80,10 @@ class GameState:
         '''Loads game state from json object'''
         try:
             self.__game_settings.from_json(json["game_settings"])
-            self.__message_history = [Message("", "").from_json(message)
-                                      for message in json["message_history"]] # cringe
-            self.__system_context = [Message("", "").from_json(message)
-                                     for message in json["system_context"]] # cringe
+            self.__message_history = [Message("", "").from_json(message) # cringe
+                                      for message in json["message_history"]]
+            self.__system_context = [Message("", "").from_json(message) # cringe
+                                     for message in json["system_context"]]
             self.__bars = json["bars"]
             self.__save_to_file()
         except KeyError as exc:
