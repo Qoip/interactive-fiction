@@ -24,9 +24,8 @@ class WebUI:
         @self.app.route('/')
         def load():
             return render_template('index.html',
-                                   history_length=self.__game_settings.history_length,
-                                   context_messages=self.__game_settings.context_messages,
-                                   assistant_instruction=self.__game_settings.assistant_instruction)
+                                   game_settings=self.__game_settings,
+                                   bars=self.__game.state.bars)
 
         @self.app.route('/query', methods=['POST'])
         def user_query_listener():
