@@ -16,7 +16,12 @@ class WebUI:
         self.app.secret_key = 'your_secret_key_here'  # make it secret
         self.__game = GameEngine()
         self.__game_settings = deepcopy(self.__game.state.game_settings)
+        self.text: str = ""
         self.setup_routes()
+        if self.__game.state.context_messages():
+            self.text = self.__game.state.context_messages()[-1].message
+        else:
+            self.text = "Welcome to my interactive fiction game! Start by typing something."
 
     def setup_routes(self):
         '''Setup routes for game server.'''
@@ -25,12 +30,14 @@ class WebUI:
         def load():
             return render_template('index.html',
                                    game_settings=self.__game_settings,
-                                   bars=self.__game.state.bars)
+                                   bars=self.__game.state.bars,
+                                   text=self.text,
+                                   image_link=self.__game.state.image_link)
 
         @self.app.route('/query', methods=['POST'])
         def user_query_listener():
             '''Listener to user query.'''
-            self.__game.user_query(request.form.get('user_query'))
+            self.text = self.__game.user_query(request.form.get('user_query'))
 
             flash("Query resolved", "success")
             return redirect('/')
@@ -39,6 +46,7 @@ class WebUI:
         def reset_listener():
             '''Reset button listener.'''
             self.__game.reset_state()
+            self.text = "Welcome to my interactive fiction game! Start by typing something."
 
             flash("Reset successful", "success")
             return redirect('/')
