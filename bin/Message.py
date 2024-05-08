@@ -12,6 +12,10 @@ class Message:
         self.message = message
         self.timestamp = datetime.now()
 
+    def __str__(self) -> str:
+        '''Convert the message to a string representation.'''
+        return f"{self.sender}: {self.message}"
+
     def is_empty(self) -> bool:
         '''Check for message emptiness.'''
         return self.message.strip() == ""
@@ -28,7 +32,7 @@ class Message:
             "timestamp": self.timestamp.isoformat()
         }
 
-    def from_json(self, json : Dict[str, Any]):
+    def from_json(self, json: Dict[str, Any]):
         '''Load message from json object'''
         try:
             self.sender = json["sender"]
