@@ -17,6 +17,7 @@ class GameState:
         self.__system_context: List[Message] = []
         self.__bars: Dict[str, Any] = {}
         self.__saving_path = "./data/state.json"
+        self.__image_link: str = None
         self.__load_from_file()
 
     def context_messages(self) -> List[Message]:
@@ -41,12 +42,23 @@ class GameState:
         self.__save_to_file()
 
     @property
+    def image_link(self) -> str:
+        '''Return image link.'''
+        return self.__image_link
+
+    @image_link.setter
+    def image_link(self, link: str):
+        '''Set image link.'''
+        self.__image_link = link
+        self.__save_to_file()
+
+    @property
     def bars(self) -> Dict[str, Any]:
         '''Return bars information.'''
         return self.__bars
 
     @bars.setter
-    def bars(self, bars_info):
+    def bars(self, bars_info: Dict[str, Any]):
         '''Update bars.'''
         self.__bars = bars_info
         self.__save_to_file()
@@ -73,18 +85,28 @@ class GameState:
             "game_settings": self.__game_settings.to_json(),
             "message_history": [message.to_json() for message in self.__message_history],
             "system_context": [message.to_json() for message in self.__system_context],
-            "bars": self.__bars
+            "bars": self.__bars,
+            "image_link": self.__image_link
         }
 
     def from_json(self, json: Dict[str, Any]):
         '''Loads game state from json object'''
         try:
             self.__game_settings.from_json(json["game_settings"])
-            self.__message_history = [Message("", "").from_json(message)  # cringe
-                                      for message in json["message_history"]]
-            self.__system_context = [Message("", "").from_json(message)  # cringe
-                                     for message in json["system_context"]]
+            # self.__message_history = [Message("", "").from_json(message)  # cringe
+            #                           for message in json["message_history"]]
+            # self.__system_context = [Message("", "").from_json(message)  # cringe
+            #                          for message in json["system_context"]]
+            self.__message_history = []
+            for message_data in json["message_history"]:
+                self.__message_history.append(Message("", ""))
+                self.__message_history[-1].from_json(message_data)
+            self.__system_context = []
+            for message_data in json["system_context"]:
+                self.__system_context.append(Message("", ""))
+                self.__system_context[-1].from_json(message_data)
             self.__bars = json["bars"]
+            self.__image_link = json.get("image_link", None)
             self.__save_to_file()
         except KeyError as exc:
             raise KeyError(f"JSON decode error:\n{json}") from exc
