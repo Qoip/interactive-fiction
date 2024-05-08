@@ -22,7 +22,7 @@ class Message:
 
     def format(self) -> str:
         '''Format the message with timestamp and sender.'''
-        return f'{self.timestamp} | {self.timestamp}: {self.message}'
+        return f'{self.timestamp} | {self.sender}: {self.message}'
 
     def to_json(self) -> Dict[str, Any]:
         '''Makes json object from class data'''
@@ -36,7 +36,7 @@ class Message:
         '''Load message from json object'''
         try:
             self.sender = json["sender"]
-            self.sender = json["message"]
+            self.message = json["message"]
             self.timestamp = datetime.fromisoformat(json["timestamp"])
         except KeyError as exc:
             raise KeyError(f"JSON decode error:\n{json}") from exc
