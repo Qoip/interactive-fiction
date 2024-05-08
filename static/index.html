@@ -33,6 +33,16 @@
     <div>
         <img src="{{ image_link }}" alt="Image">
     </div>
+
+    <div>
+        {% with flashed_messages = get_flashed_messages() %}
+            <ul>
+                {% for message in flashed_messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endwith %}
+    </div>
     
 </body>
 </html>
