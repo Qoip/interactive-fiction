@@ -4,6 +4,10 @@
     <title>Interactive fiction game</title>
 </head>
 <body>
+    <h1>Interactive fiction game</h1>
+    <div>
+        <p>{{ text }}</p>
+    </div>
     <form method="POST" action="/query">
         <input name="user_query">
         <button type="submit">Run</button>
@@ -27,13 +31,7 @@
     </div>
 
     <div>
-        {% with flashed_messages = get_flashed_messages() %}
-            <ul>
-                {% for message in flashed_messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endwith %}
+        <img src="{{ image_link }}" alt="Image">
     </div>
     
 </body>
