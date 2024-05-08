@@ -48,4 +48,4 @@ class DataStorage:
         '''Log message.'''
         log_path = './data/storage/log.log'
         with open(log_path, 'a') as file:
-            file.write(str(message) + '\n')
+            file.write(message.format() + '\n')

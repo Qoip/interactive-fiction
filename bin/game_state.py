@@ -76,13 +76,13 @@ class GameState:
             "bars": self.__bars
         }
 
-    def from_json(self, json : Dict[str, Any]):
+    def from_json(self, json: Dict[str, Any]):
         '''Loads game state from json object'''
         try:
             self.__game_settings.from_json(json["game_settings"])
-            self.__message_history = [Message("", "").from_json(message) # cringe
+            self.__message_history = [Message("", "").from_json(message)  # cringe
                                       for message in json["message_history"]]
-            self.__system_context = [Message("", "").from_json(message) # cringe
+            self.__system_context = [Message("", "").from_json(message)  # cringe
                                      for message in json["system_context"]]
             self.__bars = json["bars"]
             self.__save_to_file()

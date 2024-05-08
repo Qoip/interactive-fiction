@@ -1,13 +1,13 @@
 '''Module containing WebUI class.'''
 
 from datetime import datetime
-from typing import Dict, Any
+from typing import Dict, Any, Literal
 
 
 class Message:
     '''OpenAI message container.'''
 
-    def __init__(self, sender: str, message: str):
+    def __init__(self, sender: str, message: Literal["assistant", "user", "system"]):
         self.sender = sender
         self.message = message
         self.timestamp = datetime.now()
