@@ -31,6 +31,13 @@ class GameState:
             self.__message_history = self.__message_history[:self.__game_settings.history_length]
         self.__save_to_file()
 
+    def get_history_text(self) -> List[str]:
+        '''Return message history.'''
+        result = []
+        for message in self.__message_history:
+            result.append(message.message)
+        return result
+
     @property
     def system_context(self) -> List[Message]:
         '''Return system context messages.'''
