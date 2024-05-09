@@ -4,6 +4,7 @@ from typing import List, Dict, Any
 from json import dump, load, JSONDecodeError
 from game_settings import GameSettings
 from message import Message
+import os
 
 
 class GameState:
@@ -120,6 +121,9 @@ class GameState:
 
     def __save_to_file(self):
         '''Save state to file.'''
+        directory = os.path.dirname(self.__saving_path)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
         with open(self.__saving_path, 'w', encoding='utf-8') as state_storage:
             dump(self.to_json(), state_storage, indent=4)
 
