@@ -22,7 +22,7 @@ Also current game state (context, location image, settings, etc.) is always save
 
 Since you probably have no OPENAI_API_KEY, you can see how game works by watching this video (clickable):
 
-![](https://youtu.be/WEEWDhriioY)
+[![Watch the video](https://img.youtube.com/vi/WEEWDhriioY/maxresdefault.jpg)](https://youtu.be/WEEWDhriioY)
 Page load long when new location is generated, because of waiting for API request to generate it.
 
 Created by:
