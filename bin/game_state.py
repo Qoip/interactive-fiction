@@ -9,7 +9,7 @@ from message import Message
 class GameState:
     '''Class responds to saving game current state.'''
 
-    DEFAULT_SETTINGS_PATH = "./data/default_state.json"
+    DEFAULT_SETTINGS_PATH = "./static/default_state.json"
 
     def __init__(self):
         self.__game_settings = GameSettings()
