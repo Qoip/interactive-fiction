@@ -4,6 +4,7 @@ from copy import deepcopy
 from flask import Flask, render_template, request, redirect, flash
 from game_engine import GameEngine
 import base64
+import os
 
 
 class WebUI:
@@ -24,13 +25,16 @@ class WebUI:
 
         @self.app.route('/')
         def load():
-            with open(self.__game.state.image_link, "rb") as image_file:
-                encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
+            encoded_image = None
+            if os.path.exists(self.__game.state.image_link):
+                with open(self.__game.state.image_link, "rb") as image_file:
+                    encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
             return render_template('index.html',
                                    game_settings=self.__game_settings,
                                    bars=self.__game.state.bars,
                                    history=self.__game.state.get_history_text(),
-                                   image=encoded_image)
+                                   image=encoded_image,
+                                   is_dead=self.__game.state.bars["health"] <= 0)
 
         @self.app.route('/query', methods=['POST'])
         def user_query_listener():
