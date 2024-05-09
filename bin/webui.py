@@ -58,8 +58,8 @@ class WebUI:
             data = request.form
             self.__game_settings.assistant_instruction = data.get(
                 'assistant_instruction')
-            self.__game_settings.context_messages = data.get('context_messages')
-            self.__game_settings.history_length = data.get('history_length')
+            self.__game_settings.context_messages = int(data.get('context_messages'))
+            self.__game_settings.history_length = int(data.get('history_length'))
 
             self.__game.state.game_settings = self.__game_settings
 
