@@ -5,6 +5,7 @@ from game_state import GameState
 from data_storage import DataStorage
 from message import Message
 import json
+import urllib.request
 
 
 class GameEngine:
@@ -22,14 +23,16 @@ class GameEngine:
         if "bars" in data:
             self.state.bars = data["bars"]
         if "location" in data:
-            self.state.image_link = self.__content_generator.image_generate(data["location"])
+            image_link = self.__content_generator.image_generate(data["location"])
+            self.state.image_link = "data/image.png"
+            urllib.request.urlretrieve(image_link, self.state.image_link)
         self.state.add_message(Message("assistant", data["response"]))
         return data["response"]
 
     def reset_state(self):
         '''Resets game.'''
         self.state.reset()
-        # self.__storage.reset()
+        self.__storage.reset()
 
     # def change_category_element(self, category: str):
     #     '''Change current element by category.'''
