@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Interactive fiction game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      .main-container {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 20px;
+      }
+      .history-container {
+        flex: 70%;
+        display: flex;
+        flex-direction: column;
+      }
+      .history {
+        overflow-y: auto;
+        margin-right: 20px; /* Ensure there's space between the history and the right container */
+      }
+      .chat-input {
+        flex-shrink: 0;
+      }
+      .settings,
+      .bars {
+        padding: 10px;
+        box-shadow: 0 0 10px #ccc;
+        margin-bottom: 20px; /* Space between settings and bars */
+      }
+      .right-container {
+        flex: 30%;
+        display: flex;
+        flex-direction: column;
+      }
+      .settings input,
+      .settings button,
+      .chat-input input,
+      .chat-input button {
+        display: block;
+        margin: 10px 0;
+        width: calc(100% - 20px);
+      }
+      .image-container img {
+        max-width: 100%;
+        height: auto;
+      }
+      .flashes {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="history-container">
+        <div class="history">
+          <h1>Interactive fiction game</h1>
+          <ul>
+            {% for item in history %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="chat-input">
+          <form method="POST" action="/query">
+            <input name="user_query" placeholder="Your message" />
+            {% if is_dead %}
+            <button type="submit" disabled>You died</button>
+            {% else %}
+            <button type="submit">Send</button>
+            {% endif %}
+          </form>
+          <button onclick="window.location.href='/reset'">Reset</button>
+        </div>
+        <div class="image-container">
+          <img src="data:image/png;base64,{{ image }}" />
+        </div>
+      </div>
+
+      <div class="right-container">
+        <div class="settings">
+          <h2>Settings</h2>
+          <form method="POST" action="/settings_change">
+            <label>History Length:</label>
+            <input
+              type="number"
+              name="history_length"
+              value="{{ game_settings.history_length }}"
+            />
+            <label>Context Messages:</label>
+            <input
+              type="number"
+              name="context_messages"
+              value="{{ game_settings.context_messages }}"
+            />
+            <label>Assistant Instruction:</label>
+            <input
+              type="text"
+              name="assistant_instruction"
+              value="{{ game_settings.assistant_instruction }}"
+            />
+            <button type="submit">Update Settings</button>
+          </form>
+        </div>
+
+        <div class="bars">
+          <h2>Bars</h2>
+          <ul>
+            {% for key, value in bars.items() %}
+            <li><strong>{{ key }}</strong>: {{ value }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="flashes">
+      {% with flashed_messages = get_flashed_messages() %}
+      <ul>
+        {% for message in flashed_messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endwith %}
+    </div>
+  </body>
+</html>
